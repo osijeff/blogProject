@@ -1,0 +1,36 @@
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    <li class="step-links">
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}" class="page-link">Previous</a>
+    {% endif %}
+    </li>
+    <li class="current page-item disabled">
+        <li class="page-item"><a class="page-link" href="{{ page.number }} of {{ page.paginator.num_pages }}">{{ page.number }}  of {{ page.paginator.num_pages }}</a></li>
+    </li>
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}" class="page-link">Next</a>
+    {% endif %}
+    </span>
+</ul>
+</nav> 
+
+
+  <!-- <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}" class="page-link">Previous</a>
+        {% endif %}
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="{{ page.number }} of {{ page.paginator.num_pages }}">{{ page.number }}</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}" class="page-link">Next</a>
+    {% endif %}
+      </li>
+    </ul>
+  </nav> -->

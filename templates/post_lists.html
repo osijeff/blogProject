@@ -1,0 +1,141 @@
+<!-- templates/home.html -->
+{% extends '_base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="hero-section"  >
+    <div class="left">
+        <div class="content">
+            <img src="/static/images/overlap.jpg " alt="overlap" height="100%" >
+        </div>
+        <div class="content">
+            <img src="/static/images/full-image.webp" alt="overlap"  height="100%" >
+        </div>
+        
+        
+    </div>
+    <div class="right">
+        <h4>{{ item.author }}<span>{{ item.publish }}</span></h4>
+        <h1>{{item.title}}</h1>
+        <p> {{ item.body|truncatewords:50|linebreaks }}</p>
+         <a href="{{ item.get_absolute_url }}">read full story</a>
+
+    </div>
+</div>
+
+
+{% if tag %}
+<h2>Posts tagged with "{{ tag.name }}"</h2>
+{% endif %}
+
+
+
+<div class="tranding">
+    <div class="title">
+        <h1>
+            Trending <br>
+            This Week
+        </h1>
+        <div> 
+            <i class="fal fa-long-arrow-left"></i>
+            <i class="fal fa-long-arrow-right"></i>
+           
+        </div>
+    </div>
+    <div class="card-wrapper">
+        {% for post in posts %}
+        <div class="card-itms" style="width:33%">
+            <div>
+            <img src="{{post.blog_image.url}}" alt="" width="100%">
+            </div>
+            <h4>{{ post.author }} <span><img src="{{post.author_pic.url}}" alt="" width="50" height="50"></span><span>{{ post.publish }}</span></h4>
+            <h1 > {{ post.title }}
+                
+            </h1>
+            <p> {{ post.body|truncatewords:50|linebreaks }}</p>
+            <a href="{{ post.get_absolute_url }}">read full story <span> <i class="fal fa-long-arrow-right"></i></span></a>
+            <p class="tags">
+                Tags:
+                {% for tag in post.tags.all %}
+                <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+                {{ tag.name }}
+                </a>
+                {% if not forloop.last %} {% endif %}
+                {% endfor %}
+               </p>
+        </div>
+        {% endfor %}
+
+
+    
+    </div>
+  
+    </div>
+</div>
+
+
+
+ <!-- EDITORS CHOICE SECTION START -->
+
+
+ <div class="editor-choice">
+    <div class="title">
+        <h1>
+            Editor's<br>
+            Choice
+        </h1>
+    </div>
+        <div class="editor-card-wrapper">
+            <div class="card-list one">
+                <h4>science<span>July, 20 - 2021</span></h4>
+                <h1>2022 fullstack developer road map. learn html. css, javascript, msql, react and devOPs</h1>
+               
+                <h2>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe, eum, voluptatum mollitia nostrum tenetur unde aliquam necessitatibus, laudantium natus voluptatibus cupiditate vel. Similique magnam hic voluptas possimus, aspernatur voluptatibus! Impedit?</h2>
+                
+                <a href="">read full story <span> <i class="fal fa-long-arrow-right"></i></span></a>
+            </div>
+            {% for single in editor %}
+            <div class=" card-list two" >
+                <h4>{{ single.author }}<span>{{ single.publish }}</span></h4>
+                <h1>{{ single.title }}</h1>
+                <div>
+                <img src="{{single.blog_image.url}}" alt="">
+                </div> 
+                <p>{{ single.body|truncatewords:50|linebreaks }}</p>
+                <a href="{{ single.get_absolute_url }}">read full story<span> <i class="fal fa-long-arrow-right"></i></span></a>
+            </div>
+            {% endfor %}
+          
+           
+         
+            
+        </div>
+        
+</div>
+
+ <h2>
+ <a href="{{ post.get_absolute_url }}">
+ {{ post.title }}
+ </a>
+ </h2>
+ <p class="tags">
+    Tags:
+    {% for tag in post.tags.all %}
+    <a href="{% url "blog:post_list_by_tag" tag.slug %}">
+    {{ tag.name }}
+    </a>
+    {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+   </p>
+ <p class="date">
+ Published {{ post.publish }} by {{ post.author }} <span><img src="{{post.author_pic.url}}" alt="" width="50" height="50"></span>
+ </p>
+ <img src="{{post.blog_image.url}}" alt="" width="200" height="200">
+
+
+ {{ post.body|truncatewords:10|linebreaks }}
+ 
+
+
+ {% include "pages/pagination.html" with page=posts %}
+{% endblock content %}
+
